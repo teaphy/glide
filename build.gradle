@@ -3,8 +3,11 @@ import se.bjurr.violations.gradle.plugin.ViolationsTask
 
 buildscript {
     repositories {
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url "https://maven.aliyun.com/repository/central" }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
         google()
-        mavenCentral()
+//        mavenCentral()
         gradlePluginPortal()
     }
 
@@ -25,8 +28,11 @@ buildscript {
 }
 
 repositories {
+    maven { url "https://maven.aliyun.com/repository/public" }
+    maven { url "https://maven.aliyun.com/repository/central" }
+    maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
     google()
-    mavenCentral()
+//    mavenCentral()
 }
 
 apply plugin: 'binary-compatibility-validator'
@@ -65,7 +71,10 @@ afterEvaluate {
 subprojects { project ->
     repositories {
         google()
-        mavenCentral()
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url "https://maven.aliyun.com/repository/central" }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+//        mavenCentral()
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots"
         }

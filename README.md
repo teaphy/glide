@@ -26,7 +26,7 @@ Or use Gradle:
 
 ```gradle
 repositories {
-  google()
+ google()
   mavenCentral()
 }
 

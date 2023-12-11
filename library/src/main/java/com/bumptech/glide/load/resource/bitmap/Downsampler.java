@@ -713,22 +713,25 @@ public final class Downsampler {
       return;
     }
 
-    boolean hasAlpha = false;
-    try {
-      hasAlpha = imageReader.getImageType().hasAlpha();
-    } catch (IOException e) {
-      if (Log.isLoggable(TAG, Log.DEBUG)) {
-        Log.d(
-            TAG,
-            "Cannot determine whether the image has alpha or not from header"
-                + ", format "
-                + format,
-            e);
-      }
-    }
-
-    optionsWithScaling.inPreferredConfig =
-        hasAlpha ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
+    // 判断图片是否支持alpha通道。若不支持alpha，设置为RGB_565；否则，设置为ARGB_8888
+    // 取消 根据 当前图片的格式(从 原始图片的EXIF头信息 中获取)，来设置 options
+    // 若当前格式的图片支持alpha通道，则还是会设置为ARGB_8888的格式。
+//    boolean hasAlpha = false;
+//    try {
+//      hasAlpha = imageReader.getImageType().hasAlpha();
+//    } catch (IOException e) {
+//      if (Log.isLoggable(TAG, Log.DEBUG)) {
+//        Log.d(
+//            TAG,
+//            "Cannot determine whether the image has alpha or not from header"
+//                + ", format "
+//                + format,
+//            e);
+//      }
+//    }
+//
+//    optionsWithScaling.inPreferredConfig =
+//        hasAlpha ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
     if (optionsWithScaling.inPreferredConfig == Config.RGB_565) {
       optionsWithScaling.inDither = true;
     }
