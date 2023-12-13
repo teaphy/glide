@@ -35,23 +35,26 @@ def isReleaseBuild() {
 }
 
 def getReleaseRepositoryUrl() {
-    return hasProperty('LOCAL') ? localMavenRepo()
-            : hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
-            : 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+    return 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
 }
 
 def getSnapshotRepositoryUrl() {
-    return hasProperty('LOCAL') ? localMavenRepo()
-            : hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
-            : 'https://oss.sonatype.org/content/repositories/snapshots/'
+    return 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
 }
 
 def getRepositoryUsername() {
-    return hasProperty('USERNAME') ? USERNAME : (hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : '')
+    return "teaphy"
 }
 
 def getRepositoryPassword() {
-    return hasProperty('PASSWORD') ? PASSWORD : (hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : '')
+    return "Zcq19900106!@"
+}
+
+
+//签名
+signing {
+    //required { gradle.taskGraph.hasTask("afterEvaluate") }
+    sign configurations.archives
 }
 
 afterEvaluate { project ->
@@ -67,12 +70,28 @@ afterEvaluate { project ->
 
                 repositories {
                     maven {
+                        name = "mavenCentral"
                         url = isReleaseBuild() ? getReleaseRepositoryUrl() : getSnapshotRepositoryUrl()
 
                         credentials {
                             username = getRepositoryUsername()
                             password = getRepositoryPassword()
-
+                        }
+                    }
+                    maven {
+                        name = "mavenAliyun"
+                        url = 'https://packages.aliyun.com/maven/repository/2441721-release-C2D0ZB/'
+                        credentials {
+                            username = '65795324b07fd20003a9147d'
+                            password = 'HHF[FZ=tvhGE'
+                        }
+                    }
+                    maven {
+                        name = "mavenAliyunSnapshot"
+                        url = 'https://packages.aliyun.com/maven/repository/2441721-snapshot-10TLH2/'
+                        credentials {
+                            username = '65795324b07fd20003a9147d'
+                            password = 'HHF[FZ=tvhGE'
                         }
                     }
                 }
@@ -158,8 +177,8 @@ afterEvaluate { project ->
                             classpath += files(variants.collect { it.getJavaCompileProvider().get().classpath.files })
                         }
                         options {
-                            links("http://docs.oracle.com/javase/7/docs/api/")
-                            links("http://d.android.com/reference")
+//                            links("http://docs.oracle.com/javase/7/docs/api/")
+//                            links("http://d.android.com/reference")
                         }
 
                         exclude '**/R.java'
@@ -212,8 +231,8 @@ afterEvaluate { project ->
         }
     }
 
-    signing {
-        required { isReleaseBuild() }
-        sign publishing.publications
-    }
+//    signing {
+//        required { isReleaseBuild() }
+//        sign publishing.publications
+//    }
 }

@@ -1,6 +1,6 @@
 package com.bumptech.glide.util;
 
-/** Similar to {@link com.google.common.base.Suppliers}, but named to reduce import confusion. */
+/** Similar to {com.google.common.base.Suppliers}, but named to reduce import confusion. */
 public final class GlideSuppliers {
   /**
    * Produces a non-null instance of {@code T}.

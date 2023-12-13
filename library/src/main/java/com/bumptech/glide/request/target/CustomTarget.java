@@ -18,7 +18,7 @@ import com.bumptech.glide.util.Util;
  * com.bumptech.glide.RequestBuilder#into(ImageView)}, a subclass of {@link ImageViewTarget}, or
  * {@link CustomViewTarget}. Using this class to load resources into {@link View}s can prevent Glide
  * from correctly cancelling any previous loads, which may result in incorrect images appearing in
- * the view, especially in scrolling views like {@link androidx.recyclerview.widget.RecyclerView}.
+ * the view, especially in scrolling views like { androidx.recyclerview.widget.RecyclerView}.
  *
  * <p>You <em>MUST</em> implement {@link #onLoadCleared(Drawable)} and ensure that all references to
  * any resource passed into the target in {@link #onResourceReady(Object, Transition)} are removed
